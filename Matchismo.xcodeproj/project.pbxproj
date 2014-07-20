@@ -24,6 +24,7 @@
 		23CC51AE197B38AE008879F9 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CC51AD197B38AE008879F9 /* Card.m */; };
 		23CC51B1197B4885008879F9 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CC51B0197B4885008879F9 /* Deck.m */; };
 		23CC51B4197B4C82008879F9 /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CC51B3197B4C82008879F9 /* PlayingCard.m */; };
+		23CC51B7197B528F008879F9 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CC51B6197B528F008879F9 /* PlayingCardDeck.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		23CC51B0197B4885008879F9 /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck.m; sourceTree = "<group>"; };
 		23CC51B2197B4C82008879F9 /* PlayingCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCard.h; sourceTree = "<group>"; };
 		23CC51B3197B4C82008879F9 /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCard.m; sourceTree = "<group>"; };
+		23CC51B5197B528F008879F9 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardDeck.h; sourceTree = "<group>"; };
+		23CC51B6197B528F008879F9 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardDeck.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,8 @@
 				23CC51B0197B4885008879F9 /* Deck.m */,
 				23CC51B2197B4C82008879F9 /* PlayingCard.h */,
 				23CC51B3197B4C82008879F9 /* PlayingCard.m */,
+				23CC51B5197B528F008879F9 /* PlayingCardDeck.h */,
+				23CC51B6197B528F008879F9 /* PlayingCardDeck.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				23CC51B1197B4885008879F9 /* Deck.m in Sources */,
 				23CC5184197B362F008879F9 /* CardGameAppDelegate.m in Sources */,
 				23CC518A197B362F008879F9 /* CardGameViewController.m in Sources */,
+				23CC51B7197B528F008879F9 /* PlayingCardDeck.m in Sources */,
 				23CC5180197B362F008879F9 /* main.m in Sources */,
 				23CC51AE197B38AE008879F9 /* Card.m in Sources */,
 			);
