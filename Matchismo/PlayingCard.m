@@ -58,11 +58,27 @@
     
     if ([otherCards count] == 1) {
         PlayingCard *otherCard = [otherCards firstObject];
-        if ([self.suit isEqualToString:otherCard.suit]) {
-            score = 1;
-        } else if (self.rank == otherCard.rank) {
-            score = 4;
+        score += [self matchOnePlayingCard:otherCard];
+    } else {
+        for (PlayingCard *otherCard in otherCards) {
+            score += [self matchOnePlayingCard:otherCard];
         }
+        // Recursively match the rest of the cards
+        NSRange arrayRange = NSMakeRange(1, [otherCards count]-1);
+        score += [otherCards[0] match:[otherCards subarrayWithRange:arrayRange]];
+    }
+    
+    return score;
+}
+
+- (int)matchOnePlayingCard:(PlayingCard *)otherCard
+{
+    int score = 0;
+    
+    if ([self.suit isEqualToString:otherCard.suit]) {
+        score += 1;
+    } else if (self.rank == otherCard.rank) {
+        score += 4;
     }
     
     return score;

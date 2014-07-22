@@ -46,30 +46,48 @@
     return nil;
 }
 
+// Match mode number defaults to 2 (2-card-match mode) if not set
+- (NSInteger)matchModeNumber
+{
+    if (!_matchModeNumber || _matchModeNumber < 2) {
+        return 2;
+    } else {
+        return _matchModeNumber;
+    }
+}
+
 static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
 - (void)chooseCardAtIndex:(NSUInteger)index
 {
     Card *card = [self cardAtIndex:index];
-    
+
     if (!card.isMatched) {
         if (card.isChosen) {
             card.chosen = NO;
         } else {
-            // match against another card
+            NSMutableArray *otherChosenCards = [[NSMutableArray alloc] init];
             for (Card *otherCard in self.cards) {
                 if (otherCard.isChosen && !otherCard.isMatched) {
-                    int matchScore = [card match:@[otherCard]];
-                    if (matchScore) {
-                        self.score += matchScore * MATCH_BONUS;
-                        card.matched = YES;
-                        otherCard.matched = YES;
-                    } else {
-                        otherCard.chosen = NO;
-                        self.score -= MISMATCH_PENALTY;
+                    [otherChosenCards addObject:otherCard];
+                    if ([otherChosenCards count] + 1 == self.matchModeNumber) {
+                        int matchScore = [card match:otherChosenCards];
+                        if (matchScore) {
+                            // Match was found
+                            self.score += matchScore * MATCH_BONUS;
+                            card.matched = YES;
+                            for (Card *otherCard in otherChosenCards) {
+                                otherCard.matched = YES;
+                            }
+                        } else {
+                            // No match found
+                            for (Card *otherCard in otherChosenCards) {
+                                otherCard.chosen = NO;
+                            }
+                            self.score -= MISMATCH_PENALTY;
+                        }
                     }
-                    break;
                 }
             }
             self.score -= COST_TO_CHOOSE;
