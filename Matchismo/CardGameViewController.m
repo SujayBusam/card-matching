@@ -91,7 +91,7 @@
         NSString *matchSetContent = [matchSet componentsJoinedByString:@" "];
         
         if (self.game.currentMatchSetScore < 0) {
-            commentaryString = [NSString stringWithFormat:@"%@ don't match! %d point penalty", matchSetContent, self.game.currentMatchSetScore];
+            commentaryString = [NSString stringWithFormat:@"%@ don't match! %d point penalty", matchSetContent, - self.game.currentMatchSetScore];
         } else if (self.game.currentMatchSetScore > 0) {
             commentaryString = [NSString stringWithFormat:@"Matched %@ for %d points.", matchSetContent, self.game.currentMatchSetScore];
         } else {
