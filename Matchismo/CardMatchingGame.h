@@ -20,6 +20,8 @@
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) NSInteger score;
+@property (nonatomic, readonly) NSInteger currentMatchSetScore;
 @property (nonatomic) NSInteger matchModeNumber;
+@property (nonatomic, strong, readonly) NSArray *currentMatchSet; // of Card
 
 @end

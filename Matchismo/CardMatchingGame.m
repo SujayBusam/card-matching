@@ -10,7 +10,9 @@
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
+@property (nonatomic, readwrite) NSInteger currentMatchSetScore;
 @property (nonatomic, strong) NSMutableArray *cards; // of Card
+@property (nonatomic, strong, readwrite) NSArray *currentMatchSet; // of Card
 @end
 
 @implementation CardMatchingGame
@@ -46,6 +48,13 @@
     return nil;
 }
 
+- (NSArray *)currentMatchSet
+{
+    if (!_currentMatchSet) _currentMatchSet = [[NSArray alloc] init];
+    return _currentMatchSet;
+}
+
+
 // Match mode number defaults to 2 (2-card-match mode) if not set
 - (NSInteger)matchModeNumber
 {
@@ -68,6 +77,8 @@ static const int COST_TO_CHOOSE = 1;
             card.chosen = NO;
         } else {
             NSMutableArray *otherChosenCards = [[NSMutableArray alloc] init];
+            self.currentMatchSetScore = 0;
+            
             for (Card *otherCard in self.cards) {
                 if (otherCard.isChosen && !otherCard.isMatched) {
                     [otherChosenCards addObject:otherCard];
@@ -75,7 +86,7 @@ static const int COST_TO_CHOOSE = 1;
                         int matchScore = [card match:otherChosenCards];
                         if (matchScore) {
                             // Match was found
-                            self.score += matchScore * MATCH_BONUS;
+                            self.currentMatchSetScore = matchScore * MATCH_BONUS;
                             card.matched = YES;
                             for (Card *otherCard in otherChosenCards) {
                                 otherCard.matched = YES;
@@ -85,12 +96,15 @@ static const int COST_TO_CHOOSE = 1;
                             for (Card *otherCard in otherChosenCards) {
                                 otherCard.chosen = NO;
                             }
-                            self.score -= MISMATCH_PENALTY;
+                            self.currentMatchSetScore = - MISMATCH_PENALTY;
                         }
                     }
                 }
             }
-            self.score -= COST_TO_CHOOSE;
+            // Update current match set
+            self.currentMatchSet = [otherChosenCards arrayByAddingObject:card];
+            
+            self.score += self.currentMatchSetScore - COST_TO_CHOOSE;
             card.chosen = YES;
         }
     }
